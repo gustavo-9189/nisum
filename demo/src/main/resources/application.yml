@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+      audit:
+        enabled: true
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:nisum_db
+    driver-class-name: org.h2.Driver
+    username: gustavo
+    password: 1234
+
+swagger:
+  title: Nisum API
+  description: Technical Exercise for Nisum
+  version: 1.0.0
+  name: Gustavo Alfredo Martínez
+  email: gustavo-9189@hotmail.com
