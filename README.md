@@ -1,6 +1,6 @@
 # Nisum API
 
-_Servicio que expone 3 endpoints para un API REST de usuarios._
+_Servicio que expone 4 endpoints (create, get-all, update, delete) para un API REST de usuarios._
 
 _Para mas información ver: [Prueba Backend Spring.pdf](./demo/docs/Ejercicio_JAVA-Especialista_Integracion-BCI.docx.pdf)_
 
@@ -32,7 +32,7 @@ gradle build
 
 ### Correr la aplicación (local) ⚙️
 
-_Desde una terminal, dentro del directorio del proyecto. Realizar los siguientes pasos_
+_Desde una terminal, dentro del directorio del proyecto (/nisum/demo). Realizar los siguientes pasos_
 
 ```
 gradle run
@@ -43,8 +43,19 @@ gradle run
 ### Pruebas con Insomnia REST
 _Insomnia es un cliente REST, con el cual se podran realizar pruebas a la API desplegada_
 + Descargarse la herramienta desde https://insomnia.rest/download
-+ Instalarla e importar el archivo json [nisum.json](./demo/docs/nisum.json)
++ Instalarla e importar el archivo json [nisum.json](./demo/docs/Nisum_2023-12-01.json)
 + Ir a Preferences -> Data -> Import Data
++ Luego, ir a Personal Projects -> Nisum y clickear sobre la collection user
++ Una vez dentro de la collection, en el endpoint login, vamos a poder obtener el token para acceder a los endpoints
++ Colocando las credenciales:
+```
+{
+	"email": "gustavo@gmail.com",
+	"password": "gustavo"
+}
+```
++ Luego en el header Authorization, vamos a obtener nuestro token de Autorizacion para acceder a los endpoints
+
 
 ## Autor ✒️
 
