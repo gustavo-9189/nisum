@@ -6,17 +6,19 @@ DROP TABLE IF EXISTS USER_APP;
 
 CREATE TABLE USER_APP
 (
-    ID       UUID PRIMARY KEY,
-    NAME     VARCHAR NOT NULL,
-    EMAIL    VARCHAR NOT NULL,
-    PASSWORD VARCHAR NOT NULL
+    ID        UUID PRIMARY KEY,
+    NAME      VARCHAR NOT NULL,
+    EMAIL     VARCHAR NOT NULL,
+    PASSWORD  VARCHAR NOT NULL,
+    IS_ACTIVE BOOLEAN
 );
 
 INSERT INTO USER_APP
 VALUES ('3051b858-2034-4db3-a397-e84d0e90ba1e',
         'Gustavo Martinez',
         'gustavo@gmail.com',
-        '$2a$10$QGyxnUvHcJQGGyNisdqv/OhpxdvigB58S56kfVbzYhQl5z3tuc5wC');
+        '$2a$10$QGyxnUvHcJQGGyNisdqv/OhpxdvigB58S56kfVbzYhQl5z3tuc5wC',
+        1);
 
 DROP TABLE IF EXISTS PHONE;
 

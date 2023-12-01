@@ -42,10 +42,9 @@ public class User {
     @LastModifiedDate
     private LocalDateTime modified;
 
-    @CreatedDate
     private LocalDateTime lastLogin;
 
     private String token;
 
-    private Boolean isactive = false;
+    private Boolean isactive = true;
 }

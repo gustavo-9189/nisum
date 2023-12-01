@@ -37,12 +37,9 @@ public class WebSecurityConfig {
                 .requestMatchers(
                         "/actuator/**",
                         "/h2-console/**",
-                        "/v2/api-docs",
-                        "/configuration/ui",
                         "/swagger-resources/**",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "/webjars/**"
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**"
                 ).permitAll()
                 .anyRequest()
                 .authenticated()

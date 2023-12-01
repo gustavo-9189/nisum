@@ -20,3 +20,7 @@ swagger:
   version: 1.0.0
   name: Gustavo Alfredo Martínez
   email: gustavo-9189@hotmail.com
+
+
+validation:
+  password: ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$

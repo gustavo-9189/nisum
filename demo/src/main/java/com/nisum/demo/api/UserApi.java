@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 
 @Tag(name = "User", description = "the User Api")
 public interface UserApi {
@@ -18,7 +19,7 @@ public interface UserApi {
             description = "create a new user in the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful Operation")})
-    ResponseEntity<UserResponse> create(String authorization,UserRequest userRequest);
+    ResponseEntity<UserResponse> create(String authorization, UserRequest userRequest, BindingResult bindingResult);
 
     @Operation(
             summary = "update a user",
@@ -34,4 +35,11 @@ public interface UserApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful Operation")})
     ResponseEntity<List<UserResponse>> getUsers();
+
+    @Operation(
+            summary = "logical delete a user",
+            description = "logical delete a user in the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation")})
+    ResponseEntity<UserResponse> delete(UUID uuid);
 }

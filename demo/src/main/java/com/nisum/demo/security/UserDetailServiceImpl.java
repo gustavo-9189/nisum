@@ -22,8 +22,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = this.userRepository
-                .findOneByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("El usuario con email: ".concat(email).concat(" no existe")));
+                .findOneByEmailAndIsactive(email, true)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario o Password incorrectos"));
 
         user.setLastLogin(LocalDateTime.now());
         this.userRepository.save(user);
