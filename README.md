@@ -2,7 +2,7 @@
 
 _Servicio que expone 3 endpoints para un API REST de usuarios._
 
-_Para mas información ver: [Prueba Backend Spring.pdf](./docs/Ejercicio_JAVA-Especialista_Integracion-BCI.docx.pdf)_
+_Para mas información ver: [Prueba Backend Spring.pdf](./demo/docs/Ejercicio_JAVA-Especialista_Integracion-BCI.docx.pdf)_
 
 ## Comenzando 🚀
 
@@ -43,7 +43,7 @@ gradle run
 ### Pruebas con Insomnia REST
 _Insomnia es un cliente REST, con el cual se podran realizar pruebas a la API desplegada_
 + Descargarse la herramienta desde https://insomnia.rest/download
-+ Instalarla e importar el archivo json [nisum.json](./docs/nisum.json)
++ Instalarla e importar el archivo json [nisum.json](./demo/docs/nisum.json)
 + Ir a Preferences -> Data -> Import Data
 
 ## Autor ✒️
