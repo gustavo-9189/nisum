@@ -8,8 +8,10 @@ spring:
   h2:
     console:
       enabled: true
+
   datasource:
-    url: jdbc:h2:mem:nisum_db
+#    url: jdbc:h2:mem:nisum_db
+    url: jdbc:h2:file:/Users/gustavo/repos/nisum/demo/db/nisum_db;AUTO_SERVER=true
     driver-class-name: org.h2.Driver
     username: gustavo
     password: 1234
@@ -24,3 +26,7 @@ swagger:
 
 validation:
   password: ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$
+
+field:
+  required: El campo es obligatorio
+  notEmpty: El campo no puede estar vacío

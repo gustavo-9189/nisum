@@ -1,5 +1,6 @@
 package com.nisum.demo.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -34,8 +35,8 @@ public class Phone {
     @Column(name = "COUNTRY_CODE")
     private String countrycode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USER")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_USER", nullable = false)
     private User user;
 
     @Column(updatable = false)

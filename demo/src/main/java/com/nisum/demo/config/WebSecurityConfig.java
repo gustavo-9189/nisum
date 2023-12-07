@@ -1,5 +1,7 @@
-package com.nisum.demo.security;
+package com.nisum.demo.config;
 
+import com.nisum.demo.security.JWTAuthenticationFilter;
+import com.nisum.demo.security.JWTAuthorizationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

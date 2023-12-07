@@ -1,7 +1,8 @@
-package com.nisum.demo.security;
+package com.nisum.demo.service;
 
 import com.nisum.demo.model.User;
 import com.nisum.demo.repository.UserRepository;
+import com.nisum.demo.security.UserDetailsImpl;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

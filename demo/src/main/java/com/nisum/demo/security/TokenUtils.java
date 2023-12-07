@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-public class TokenUtils {
+import static com.nisum.demo.helpers.Constants.ACCESS_TOKEN_SECRET;
+import static com.nisum.demo.helpers.Constants.ACCESS_TOKEN_VALIDITY_SECONDS;
 
-    private final static String ACCESS_TOKEN_SECRET = "343f7d35-005b-48a9-bb5e-5b25dbbd638a";
-    private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L;
+public class TokenUtils {
 
     public static String createToken(String name, String email) {
         long expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1_000;

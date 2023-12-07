@@ -1,4 +1,4 @@
-package com.nisum.demo.security;
+package com.nisum.demo.dto;
 
 import lombok.Data;
 

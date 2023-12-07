@@ -5,12 +5,14 @@ import com.nisum.demo.dto.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 
+@SecurityRequirement(name = "Authorization")
 @Tag(name = "User", description = "the User Api")
 public interface UserApi {
 

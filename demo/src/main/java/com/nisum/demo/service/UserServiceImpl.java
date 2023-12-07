@@ -8,6 +8,7 @@ import com.nisum.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,18 +33,21 @@ public class UserServiceImpl implements UserService {
     public UserResponse create(String token, UserRequest userRequest, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
+            throw new RuntimeException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
-        String jwt = token.replace("Bearer ", "");
-        User userSave = this.userMapper.userRequestToUser(userRequest);
-        userSave.setToken(jwt);
-        userSave.setLastLogin(LocalDateTime.now());
-        userSave.setPassword(new BCryptPasswordEncoder().encode(userSave.getPassword()));
 
+        User userSave = this.userMapper.userRequestToUser(userRequest);
         Optional<User> userExist = this.userRepository.findOneByEmailAndIsactive(userSave.getEmail(), true);
         if (userExist.isPresent()) {
             throw new RuntimeException("El correo ya ha sido registrado");
         }
+
+        String jwt = token.replace("Bearer ", "");
+        userSave.setToken(jwt);
+        userSave.setLastLogin(LocalDateTime.now());
+        userSave.setPassword(new BCryptPasswordEncoder().encode(userSave.getPassword()));
+        userSave.getPhones().forEach(phone -> phone.setUser(userSave));
+
         User user = this.userRepository.save(userSave);
         return this.userMapper.userToUserResponse(user);
     }

@@ -10,6 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import static com.nisum.demo.helpers.Constants.AUTHORIZATION;
+import static com.nisum.demo.helpers.Constants.BEARER;
+
 @Component
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
@@ -19,10 +22,10 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
 
-        String bearerToken = request.getHeader("Authorization");
+        String bearerToken = request.getHeader(AUTHORIZATION);
 
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            String token = bearerToken.replace("Bearer ", "");
+        if (bearerToken != null && bearerToken.startsWith(BEARER)) {
+            String token = bearerToken.replace(BEARER, "");
             UsernamePasswordAuthenticationToken usernamePAT = TokenUtils.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(usernamePAT);
         }

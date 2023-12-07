@@ -1,6 +1,7 @@
 package com.nisum.demo.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nisum.demo.dto.AuthCredentials;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +12,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import static com.nisum.demo.helpers.Constants.AUTHORIZATION;
+import static com.nisum.demo.helpers.Constants.BEARER;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -45,7 +49,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
         String token = TokenUtils.createToken(userDetails.getName(), userDetails.getUsername());
 
-        response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader(AUTHORIZATION, BEARER + token);
         response.getWriter().flush();
 
         super.successfulAuthentication(request, response, chain, authResult);
