@@ -4,7 +4,6 @@ import com.nisum.demo.model.User;
 import com.nisum.demo.repository.UserRepository;
 import com.nisum.demo.security.UserDetailsImpl;
 import java.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,9 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
     public UserDetailServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
