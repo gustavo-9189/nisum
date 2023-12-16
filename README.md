@@ -25,20 +25,19 @@ java 17.0.9 (Oracle Corporation 17.0.9+11-LTS-201)
 ```
 git clone https://github.com/gustavo-9189/nisum.git
 cd nisum
-cd demo
 gradle build
 ```
 + _gradle build_ construirá la aplicación y ejecutará los tests unitarios.
 
 ### Correr la aplicación (local) ⚙️
 
-_Desde una terminal, dentro del directorio del proyecto (/nisum/demo). Realizar los siguientes pasos_
+_Desde una terminal, dentro del directorio del proyecto (/nisum). Realizar los siguientes pasos_
 
 ```
 gradle run
 ```
 + Para saber el estado de salud de la aplicación, ir a: http://localhost:8080/actuator/health
-+ Para probar la aplicación local, ir a: http://localhost:8080/swagger-ui.html
++ Para probar la aplicación local, ir a: http://localhost:8080/swagger-ui/index.html#/
 
 ### Pruebas con Insomnia REST
 _Insomnia es un cliente REST, con el cual se podran realizar pruebas a la API desplegada_
