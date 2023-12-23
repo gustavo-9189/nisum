@@ -76,6 +76,7 @@ public class UserMapperImpl implements UserMapper {
         if (userRequest.email() != null) user.setEmail(userRequest.email());
         if (userRequest.password() != null) user.setPassword(userRequest.password());
         if (userRequest.phones() != null) user.setPhones(this.phonesRequestToPhones(userRequest.phones()));
+        user.getPhones().forEach(phone -> phone.setUser(user));
         return user;
     }
 
