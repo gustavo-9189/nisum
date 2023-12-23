@@ -26,7 +26,3 @@ swagger:
 
 validation:
   password: ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$
-
-field:
-  required: El campo es obligatorio
-  notEmpty: El campo no puede estar vacío
