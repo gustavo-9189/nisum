@@ -33,12 +33,12 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
-        User userSave = this.userMapper.userRequestToUser(userRequest);
-        Optional<User> userExist = this.userRepository.findOneByEmailAndIsActive(userSave.getEmail(), true);
+        Optional<User> userExist = this.userRepository.findOneByEmailAndIsActive(userRequest.email(), true);
         if (userExist.isPresent()) {
             throw new IllegalArgumentException("Email has already been registered");
         }
 
+        User userSave = this.userMapper.userRequestToUser(userRequest);
         String jwt = token.replace("Bearer ", "");
         userSave.setToken(jwt);
         userSave.setLastLogin(LocalDateTime.now());
