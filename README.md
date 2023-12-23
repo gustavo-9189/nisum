@@ -1,6 +1,14 @@
 # Nisum API
 
-_Servicio que expone 4 endpoints (create, get-all, update, delete) para un API REST de usuarios._
+API REST que expone los endpoints: 
+
+```
+POST   ->  http://localhost:8080/login
+POST   ->  http://localhost:8080/user
+GET    ->  http://localhost:8080/user
+PATCH  ->  http://localhost:8080/user/{uuid}
+DELETE ->  http://localhost:8080/user/{uuid}
+```
 
 _Para mas información ver: [Prueba Backend Spring.pdf](./demo/docs/Ejercicio_JAVA-Especialista_Integracion-BCI.docx.pdf)_
 
@@ -14,7 +22,6 @@ _Herramientas necesarias para correr la aplicación_
 
 ```
 git version 2.38.1
-Gradle 8.4
 java 17.0.9 (Oracle Corporation 17.0.9+11-LTS-201)
 ```
 
@@ -25,16 +32,16 @@ java 17.0.9 (Oracle Corporation 17.0.9+11-LTS-201)
 ```
 git clone https://github.com/gustavo-9189/nisum.git
 cd nisum
-gradle build
+./gradlew build
 ```
-+ _gradle build_ construirá la aplicación y ejecutará los tests unitarios.
++ _./gradlew build_ construirá la aplicación y ejecutará los tests unitarios.
 
 ### Correr la aplicación (local) ⚙️
 
 _Desde una terminal, dentro del directorio del proyecto (/nisum). Realizar los siguientes pasos_
 
 ```
-gradle run
+./gradlew run
 ```
 + Para saber el estado de salud de la aplicación, ir a: http://localhost:8080/actuator/health
 + Para probar la aplicación local, ir a: http://localhost:8080/swagger-ui/index.html#/
