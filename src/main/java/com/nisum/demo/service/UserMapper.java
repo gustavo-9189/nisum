@@ -1,12 +1,13 @@
-package com.nisum.demo.dto;
+package com.nisum.demo.service;
 
+import com.nisum.demo.dto.PhoneRequest;
+import com.nisum.demo.dto.PhoneResponse;
+import com.nisum.demo.dto.UserRequest;
+import com.nisum.demo.dto.UserResponse;
 import com.nisum.demo.model.Phone;
 import com.nisum.demo.model.User;
 import java.util.List;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
 public interface UserMapper {
 
     User userRequestToUser(UserRequest userRequest);
@@ -21,7 +22,7 @@ public interface UserMapper {
 
     PhoneResponse phoneToPhoneResponse(Phone phone);
 
-    User userUpdate(UserRequest userRequest, @MappingTarget User user);
+    User userUpdate(UserRequest userRequest, User user);
 
     List<UserResponse> usersToUserResponses(List<User> users);
 }
