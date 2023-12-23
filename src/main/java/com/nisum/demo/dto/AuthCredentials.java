@@ -1,9 +1,3 @@
 package com.nisum.demo.dto;
 
-import lombok.Data;
-
-@Data
-public class AuthCredentials {
-    private String email;
-    private String password;
-}
+public record AuthCredentials(String email, String password) { }

@@ -1,10 +1,3 @@
 package com.nisum.demo.dto;
 
-import lombok.Builder;
-import lombok.Data;
-
-@Data
-@Builder
-public class ErrorDto {
-    private String message;
-}
+public record ErrorDto(String message) {}
