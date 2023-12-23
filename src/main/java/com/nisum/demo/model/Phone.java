@@ -8,7 +8,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Data;
@@ -19,7 +18,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Data
 @Entity
-@Table(name = "PHONE")
 @Audited
 @EntityListeners(value = AuditingEntityListener.class)
 public class Phone {
@@ -29,11 +27,9 @@ public class Phone {
 
     private String number;
 
-    @Column(name = "CITY_CODE")
-    private String citycode;
+    private String cityCode;
 
-    @Column(name = "COUNTRY_CODE")
-    private String countrycode;
+    private String countryCode;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_USER", nullable = false)

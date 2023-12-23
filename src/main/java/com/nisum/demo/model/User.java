@@ -46,5 +46,5 @@ public class User {
 
     private String token;
 
-    private Boolean isactive = true;
+    private Boolean isActive = true;
 }
