@@ -1,6 +1,5 @@
 package com.nisum.demo.service;
 
-import com.nisum.demo.dto.UserMapper;
 import com.nisum.demo.dto.UserRequest;
 import com.nisum.demo.dto.UserResponse;
 import com.nisum.demo.model.User;
@@ -31,13 +30,13 @@ public class UserServiceImpl implements UserService {
     public UserResponse create(String token, UserRequest userRequest, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            throw new RuntimeException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+            throw new IllegalArgumentException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
         User userSave = this.userMapper.userRequestToUser(userRequest);
-        Optional<User> userExist = this.userRepository.findOneByEmailAndIsactive(userSave.getEmail(), true);
+        Optional<User> userExist = this.userRepository.findOneByEmailAndIsActive(userSave.getEmail(), true);
         if (userExist.isPresent()) {
-            throw new RuntimeException("El correo ya ha sido registrado");
+            throw new IllegalArgumentException("Email has already been registered");
         }
 
         String jwt = token.replace("Bearer ", "");
@@ -55,7 +54,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse update(UUID uuid, UserRequest userRequest) {
         Optional<User> userFind = this.userRepository.findById(uuid);
         if (userFind.isEmpty()) {
-            throw new RuntimeException("El usuario no existe");
+            throw new IllegalArgumentException("User does not exist");
         }
         User userSave = this.userMapper.userUpdate(userRequest, userFind.get());
         User user = this.userRepository.save(userSave);
@@ -73,10 +72,10 @@ public class UserServiceImpl implements UserService {
     public UserResponse delete(UUID uuid) {
         Optional<User> userFind = this.userRepository.findById(uuid);
         if (userFind.isEmpty()) {
-            throw new RuntimeException("El usuario no existe");
+            throw new IllegalArgumentException("Username does not exist");
         }
         User userSave = userFind.get();
-        userSave.setIsactive(false);
+        userSave.setIsActive(false);
         User user = this.userRepository.save(userSave);
         return this.userMapper.userToUserResponse(user);
     }

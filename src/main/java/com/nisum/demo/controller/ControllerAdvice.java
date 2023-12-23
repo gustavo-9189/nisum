@@ -12,10 +12,11 @@ public class ControllerAdvice {
 
     @ExceptionHandler({
             RuntimeException.class,
+            IllegalArgumentException.class,
             MethodArgumentNotValidException.class,
             UsernameNotFoundException.class})
     public ResponseEntity<ErrorDto> runtimeExceptionHandler(RuntimeException ex) {
-        ErrorDto error = ErrorDto.builder().message(ex.getMessage()).build();
+        ErrorDto error = new ErrorDto(ex.getMessage());
         return ResponseEntity.badRequest().body(error);
     }
 }

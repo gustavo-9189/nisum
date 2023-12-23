@@ -23,17 +23,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             HttpServletRequest request,
             HttpServletResponse response) throws AuthenticationException {
 
-        AuthCredentials authCredentials = new AuthCredentials();
-
+        AuthCredentials authCredentials;
         try {
             authCredentials = new ObjectMapper().readValue(request.getReader(), AuthCredentials.class);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
 
         UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(
-                authCredentials.getEmail(),
-                authCredentials.getPassword(),
+                authCredentials.email(),
+                authCredentials.password(),
                 Collections.emptyList()
         );
         return getAuthenticationManager().authenticate(usernamePAT);
