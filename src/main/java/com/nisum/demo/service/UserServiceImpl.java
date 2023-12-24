@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
         }
 
         Optional<User> userExist = this.userRepository.findOneByEmailAndIsActive(userRequest.email(), true);
-        if (userExist.isPresent()) {
+        userExist.ifPresent(user -> {
             throw new IllegalArgumentException("Email has already been registered");
-        }
+        });
 
         User userSave = this.userMapper.userRequestToUser(userRequest);
         String jwt = token.replace("Bearer ", "");
@@ -53,9 +53,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponse update(UUID uuid, UserRequest userRequest) {
         Optional<User> userFind = this.userRepository.findById(uuid);
-        if (userFind.isEmpty()) {
-            throw new IllegalArgumentException("User does not exist");
-        }
+        userFind.orElseThrow(() -> new IllegalArgumentException("User does not exist"));
         User userSave = this.userMapper.userUpdate(userRequest, userFind.get());
         User user = this.userRepository.save(userSave);
         return this.userMapper.userToUserResponse(user);
@@ -71,9 +69,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponse delete(UUID uuid) {
         Optional<User> userFind = this.userRepository.findById(uuid);
-        if (userFind.isEmpty()) {
-            throw new IllegalArgumentException("Username does not exist");
-        }
+        userFind.orElseThrow(() -> new IllegalArgumentException("User does not exist"));
         User userSave = userFind.get();
         userSave.setIsActive(false);
         User user = this.userRepository.save(userSave);
