@@ -19,12 +19,5 @@ swagger:
   name: Gustavo Alfredo Martínez
   email: gustavo-9189@hotmail.com
 
-constants:
-  authorization: Authorization
-  bearer: Bearer
-  secret: 343f7d35-005b-48a9-bb5e-5b25dbbd638a
-  seconds: 2_592_000L
-
-
 validation:
   password: ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$
