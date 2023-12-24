@@ -4,10 +4,10 @@ API REST que expone los endpoints:
 
 ```
 POST   ->  http://localhost:8080/login
-POST   ->  http://localhost:8080/user
-GET    ->  http://localhost:8080/user
-PATCH  ->  http://localhost:8080/user/{uuid}
-DELETE ->  http://localhost:8080/user/{uuid}
+POST   ->  http://localhost:8080/users
+GET    ->  http://localhost:8080/users
+PATCH  ->  http://localhost:8080/users/{uuid}
+DELETE ->  http://localhost:8080/users/{uuid}
 ```
 
 _Para mas información ver: [Prueba Backend Spring.pdf](./demo/docs/Ejercicio_JAVA-Especialista_Integracion-BCI.docx.pdf)_
