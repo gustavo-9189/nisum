@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<UserResponse> getAll() {
         List<User> users = this.userRepository.findAllByIsActive(true);
         return this.userMapper.usersToUserResponses(users);
