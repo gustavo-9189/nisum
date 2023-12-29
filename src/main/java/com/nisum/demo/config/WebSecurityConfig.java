@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,8 +24,6 @@ public class WebSecurityConfig {
     private final UserDetailsService userDetailsService;
     private final JWTAuthorizationFilter jwtAuthorizationFilter;
 
-
-    @SuppressWarnings("removal")
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authManager) throws Exception {
 
@@ -31,38 +31,30 @@ public class WebSecurityConfig {
         jwtAuthenticationFilter.setAuthenticationManager(authManager);
         jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 
-        return http
-                .headers().frameOptions().disable()
-                .and()
-                .csrf().disable()
-                .authorizeRequests()
-                .requestMatchers(
-                        "/actuator/**",
-                        "/h2-console/**",
-                        "/swagger-resources/**",
-                        "/swagger-ui/**",
-                        "/v3/api-docs/**"
-                ).permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+        return http.headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth.requestMatchers(
+                                        "/actuator/**",
+                                        "/h2-console/**",
+                                        "/swagger-resources/**",
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**"
+                                ).permitAll()
+                                .anyRequest()
+                                .authenticated()
+                ).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilter(jwtAuthenticationFilter)
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
     }
 
-    @SuppressWarnings("removal")
     @Bean
     AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(this.userDetailsService)
-                .passwordEncoder(passwordEncoder())
-                .and()
-                .build();
+        AuthenticationManagerBuilder auth = http.getSharedObject(AuthenticationManagerBuilder.class);
+        auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
+        return auth.build();
     }
 
     @Bean
