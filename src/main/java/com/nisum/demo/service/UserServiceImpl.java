@@ -25,6 +25,14 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
+    private static void registered(User user) {
+        throw new IllegalArgumentException(user.getEmail() + " has already been registered");
+    }
+
+    private static RuntimeException notExist() {
+        throw new IllegalArgumentException("User does not exist");
+    }
+
     @Override
     @Transactional
     public UserResponse create(String token, UserRequest userRequest, BindingResult bindingResult) {
@@ -33,11 +41,9 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
         }
 
-        Optional<User> userExist = this.userRepository.findOneByEmailAndIsActive(userRequest.email(), true);
-        userExist.ifPresent(user -> {
-            throw new IllegalArgumentException("Email has already been registered");
-        });
-
+        this.userRepository
+                .findOneByEmailAndIsActive(userRequest.email(), true)
+                .ifPresent(UserServiceImpl::registered);
         User userSave = this.userMapper.userRequestToUser(userRequest);
         String jwt = token.replace("Bearer ", "");
         userSave.setToken(jwt);
@@ -53,7 +59,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponse update(UUID uuid, UserRequest userRequest) {
         Optional<User> userFind = this.userRepository.findById(uuid);
-        userFind.orElseThrow(() -> new IllegalArgumentException("User does not exist"));
+        userFind.orElseThrow(UserServiceImpl::notExist);
         User userSave = this.userMapper.userUpdate(userRequest, userFind.get());
         User user = this.userRepository.save(userSave);
         return this.userMapper.userToUserResponse(user);
@@ -70,7 +76,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponse delete(UUID uuid) {
         Optional<User> userFind = this.userRepository.findById(uuid);
-        userFind.orElseThrow(() -> new IllegalArgumentException("User does not exist"));
+        userFind.orElseThrow(UserServiceImpl::notExist);
         User userSave = userFind.get();
         userSave.setIsActive(false);
         User user = this.userRepository.save(userSave);

@@ -51,7 +51,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
+    AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder auth = http.getSharedObject(AuthenticationManagerBuilder.class);
         auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
         return auth.build();
