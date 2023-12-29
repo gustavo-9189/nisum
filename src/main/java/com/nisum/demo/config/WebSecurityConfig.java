@@ -31,7 +31,6 @@ public class WebSecurityConfig {
         jwtAuthenticationFilter.setAuthenticationManager(authManager);
         jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 
-
         return http
                 .headers().frameOptions().disable()
                 .and()

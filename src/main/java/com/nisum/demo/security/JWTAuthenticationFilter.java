@@ -1,7 +1,7 @@
 package com.nisum.demo.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nisum.demo.dto.AuthCredentials;
+import com.nisum.demo.dto.LoginDto;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,16 +23,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             HttpServletRequest request,
             HttpServletResponse response) throws AuthenticationException {
 
-        AuthCredentials authCredentials;
+        LoginDto loginDto;
         try {
-            authCredentials = new ObjectMapper().readValue(request.getReader(), AuthCredentials.class);
+            loginDto = new ObjectMapper().readValue(request.getReader(), LoginDto.class);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
 
         UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(
-                authCredentials.email(),
-                authCredentials.password(),
+                loginDto.email(),
+                loginDto.password(),
                 Collections.emptyList()
         );
         return getAuthenticationManager().authenticate(usernamePAT);
