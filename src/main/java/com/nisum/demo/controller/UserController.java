@@ -5,6 +5,7 @@ import com.nisum.demo.dto.UserRequest;
 import com.nisum.demo.dto.UserResponse;
 import com.nisum.demo.service.UserService;
 import jakarta.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/users")
@@ -37,7 +39,14 @@ public class UserController implements UserApi {
             BindingResult bindingResult) {
 
         UserResponse userResponse = this.userService.create(authorization, userRequest, bindingResult);
-        return ResponseEntity.ok(userResponse);
+        URI path = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(userResponse.id())
+                .toUri();
+        return ResponseEntity
+                .created(path)
+                .body(userResponse);
     }
 
     @Override

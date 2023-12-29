@@ -20,7 +20,7 @@ public interface UserApi {
             summary = "register a new user",
             description = "create a new user in the database")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful Operation")})
+            @ApiResponse(responseCode = "201", description = "Successful Operation")})
     ResponseEntity<UserResponse> create(String authorization, UserRequest userRequest, BindingResult bindingResult);
 
     @Operation(
