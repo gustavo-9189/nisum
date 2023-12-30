@@ -8,6 +8,7 @@ import com.nisum.demo.model.Phone;
 import com.nisum.demo.model.User;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -74,7 +75,8 @@ public class UserMapperImpl implements UserMapper {
     public User userUpdate(UserRequest userRequest, User user) {
         if (userRequest.name() != null) user.setName(userRequest.name());
         if (userRequest.email() != null) user.setEmail(userRequest.email());
-        if (userRequest.password() != null) user.setPassword(userRequest.password());
+        if (userRequest.password() != null)
+            user.setPassword(new BCryptPasswordEncoder().encode(userRequest.password()));
         if (userRequest.phones() != null) user.setPhones(this.phonesRequestToPhones(userRequest.phones()));
         user.getPhones().forEach(phone -> phone.setUser(user));
         return user;
