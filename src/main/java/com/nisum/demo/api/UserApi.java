@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 
 @SecurityRequirement(name = "Authorization")
 @Tag(name = "User", description = "the User Api")
@@ -21,7 +20,7 @@ public interface UserApi {
             description = "create a new user in the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successful Operation")})
-    ResponseEntity<UserResponse> create(String authorization, UserRequest userRequest, BindingResult bindingResult);
+    ResponseEntity<UserResponse> create(String authorization, UserRequest userRequest);
 
     @Operation(
             summary = "update a user",

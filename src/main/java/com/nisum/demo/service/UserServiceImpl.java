@@ -7,12 +7,10 @@ import com.nisum.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -35,12 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponse create(String token, UserRequest userRequest, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
-        }
-
+    public UserResponse create(String token, UserRequest userRequest) {
         this.userRepository
                 .findOneByEmailAndIsActive(userRequest.email(), true)
                 .ifPresent(UserServiceImpl::registered);

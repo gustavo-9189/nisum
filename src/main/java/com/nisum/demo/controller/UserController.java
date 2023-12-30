@@ -9,7 +9,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -35,10 +34,9 @@ public class UserController implements UserApi {
     @PostMapping
     public ResponseEntity<UserResponse> create(
             @RequestHeader("Authorization") String authorization,
-            @Valid @RequestBody UserRequest userRequest,
-            BindingResult bindingResult) {
+            @Valid @RequestBody UserRequest userRequest) {
 
-        UserResponse userResponse = this.userService.create(authorization, userRequest, bindingResult);
+        UserResponse userResponse = this.userService.create(authorization, userRequest);
         URI path = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
