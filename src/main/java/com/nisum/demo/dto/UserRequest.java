@@ -9,10 +9,10 @@ import static com.nisum.demo.helpers.Constants.PASSWORD_REGEX;
 public record UserRequest(
         String name,
 
-        @Pattern(regexp = EMAIL_REGEX, message = "The email is not in the correct format")
+        @Pattern(regexp = EMAIL_REGEX, message = "Format incorrect")
         String email,
 
-        @Pattern(regexp = PASSWORD_REGEX, message = "The password has an incorrect format")
+        @Pattern(regexp = PASSWORD_REGEX, message = "Format incorrect")
         String password,
 
         List<PhoneRequest> phones

@@ -1,8 +1,7 @@
 package com.nisum.demo.config;
 
 import com.nisum.demo.dto.ErrorDto;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class ExceptionHandlerConfig extends ResponseEntityExceptionHandler {
             IllegalArgumentException.class,
             UsernameNotFoundException.class})
     public ResponseEntity<ErrorDto> runtimeExceptionHandler(RuntimeException ex) {
-        ErrorDto error = new ErrorDto(ex.getMessage());
+        ErrorDto error = new ErrorDto(null, ex.getMessage());
         return ResponseEntity.badRequest().body(error);
     }
 
@@ -32,10 +31,11 @@ public class ExceptionHandlerConfig extends ResponseEntityExceptionHandler {
             HttpStatusCode status,
             WebRequest request) {
 
-        Map<String, Object> errors = new HashMap<>();
-        ex.getBindingResult()
+        List<ErrorDto> errors = ex.getBindingResult()
                 .getFieldErrors()
-                .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+                .stream()
+                .map(error -> new ErrorDto(error.getField(), error.getDefaultMessage()))
+                .toList();
         return ResponseEntity.badRequest().body(errors);
     }
 }
