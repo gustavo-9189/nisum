@@ -51,7 +51,7 @@ public class UserController implements UserApi {
     @PatchMapping("/{uuid}")
     public ResponseEntity<UserResponse> update(
             @PathVariable UUID uuid,
-            @RequestBody UserRequest userRequest) {
+            @Valid @RequestBody UserRequest userRequest) {
 
         UserResponse userResponse = this.userService.update(uuid, userRequest);
         return ResponseEntity.ok(userResponse);

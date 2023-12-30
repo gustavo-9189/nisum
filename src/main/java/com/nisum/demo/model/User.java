@@ -7,6 +7,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -14,6 +15,9 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import static com.nisum.demo.helpers.Constants.EMAIL_REGEX;
+import static com.nisum.demo.helpers.Constants.PASSWORD_REGEX;
 
 @Data
 @Entity
@@ -26,8 +30,10 @@ public class User {
 
     private String name;
 
+    @Pattern(regexp = EMAIL_REGEX)
     private String email;
 
+    @Pattern(regexp = PASSWORD_REGEX)
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
