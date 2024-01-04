@@ -7,4 +7,5 @@ public class Constants {
     public static final Long ACCESS_TOKEN_VALIDITY_SECONDS = 2_592_000L;
     public static final String EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     public static final String PASSWORD_REGEX = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+    public static final String FORMAT_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
 }
