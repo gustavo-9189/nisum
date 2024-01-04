@@ -46,7 +46,9 @@ public class UserMapperImpl implements UserMapper {
                 user.getEmail(),
                 user.getPassword(),
                 this.phonesToPhoneResponses(user.getPhones()),
+                user.getCreatedBy(),
                 user.getCreated(),
+                user.getModifiedBy(),
                 user.getModified(),
                 user.getLastLogin(),
                 user.getToken(),
@@ -66,7 +68,9 @@ public class UserMapperImpl implements UserMapper {
                 phone.getNumber(),
                 phone.getCityCode(),
                 phone.getCountryCode(),
+                phone.getCreatedBy(),
                 phone.getCreated(),
+                phone.getModifiedBy(),
                 phone.getModified()
         );
     }

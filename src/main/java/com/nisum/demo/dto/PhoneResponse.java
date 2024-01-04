@@ -8,6 +8,8 @@ public record PhoneResponse(
         String number,
         String cityCode,
         String countryCode,
+        String createdBy,
         LocalDateTime created,
+        String modifiedBy,
         LocalDateTime modified
 ) { }
