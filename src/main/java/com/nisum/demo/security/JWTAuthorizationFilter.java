@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -22,10 +23,10 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
 
-        String bearerToken = request.getHeader(AUTHORIZATION);
+        Optional<String> bearerToken = Optional.ofNullable(request.getHeader(AUTHORIZATION));
 
-        if (bearerToken != null && bearerToken.startsWith(BEARER)) {
-            String token = bearerToken.replace(BEARER, "");
+        if (bearerToken.isPresent() && bearerToken.get().startsWith(BEARER)) {
+            String token = bearerToken.get().replace(BEARER, "");
             UsernamePasswordAuthenticationToken usernamePAT = TokenUtils.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(usernamePAT);
         }
