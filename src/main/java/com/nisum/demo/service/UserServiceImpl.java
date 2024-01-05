@@ -5,11 +5,9 @@ import com.nisum.demo.dto.UserResponse;
 import com.nisum.demo.model.User;
 import com.nisum.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,13 +35,8 @@ public class UserServiceImpl implements UserService {
         this.userRepository
                 .findOneByEmailAndIsActive(userRequest.email(), true)
                 .ifPresent(UserServiceImpl::registered);
-        User userSave = this.userMapper.userRequestToUser(userRequest);
-        String jwt = token.replace("Bearer ", "");
-        userSave.setToken(jwt);
-        userSave.setLastLogin(LocalDateTime.now());
-        userSave.setPassword(new BCryptPasswordEncoder().encode(userSave.getPassword()));
-        userSave.getPhones().forEach(phone -> phone.setUser(userSave));
 
+        User userSave = this.userMapper.userRequestToUser(userRequest, token);
         User user = this.userRepository.save(userSave);
         return this.userMapper.userToUserResponse(user);
     }

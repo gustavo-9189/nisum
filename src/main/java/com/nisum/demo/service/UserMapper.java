@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserMapper {
 
-    User userRequestToUser(UserRequest userRequest);
+    User userRequestToUser(UserRequest userRequest, String token);
 
     UserResponse userToUserResponse(User user);
 
