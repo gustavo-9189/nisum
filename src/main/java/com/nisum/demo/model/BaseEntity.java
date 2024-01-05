@@ -22,6 +22,7 @@ public abstract class BaseEntity {
     private UUID id = UUID.randomUUID();
 
     @CreatedBy
+    @Column(nullable = false, updatable = false)
     private String createdBy;
 
     @CreatedDate
