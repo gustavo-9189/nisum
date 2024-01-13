@@ -20,8 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WithMockUser(roles = "ADMIN")
 @WebMvcTest(UserController.class)
-@WithMockUser(username = "gustavo@gmail.com", password = "gustavo", roles = "")
 class UserControllerTest {
 
     @Autowired
@@ -32,6 +32,11 @@ class UserControllerTest {
 
     @InjectMocks
     private UserController userController;
+
+
+    // hacer un @Before, el cual save entity user para poder eliminar
+
+
 
     @Test
     void create() throws Exception {
@@ -45,6 +50,7 @@ class UserControllerTest {
         String jsonRequest = mapper.writeValueAsString(request);
 
         mockMvc.perform(post("/users")
+                        .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJndXN0YXZvQGdtYWlsLmNvbSIsImV4cCI6MTcwNjk5MjkwMywibmFtZSI6Ikd1c3Rhdm8gTWFydGluZXoifQ.ocMMs9rmAd1THDVsZRUj2_EKXKxvshyOx_abo9jSjyo")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequest))
                 .andExpect(status().isCreated())
